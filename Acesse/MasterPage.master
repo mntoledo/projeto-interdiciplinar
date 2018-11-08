@@ -1,0 +1,73 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Acesse</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="Content/css/StyleSheet.css" rel="stylesheet" />
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+            <header id="header">
+                <a href="#">
+                    <img class="logo img-fluid" src="img/logo.png"></a>
+                <nav class="accessibility-menu col-8 col-sm-8 col-md-6 col-lg-4 d-flex justify-content-between justify-content-end float-right">
+                    <a href="" class="action" id="zoomIn" title="Aumentar zoom" title="Aumentar tamanho da fonte" alt="Aumentar zoom"
+                        tabindex="1">A+</a>
+                    <a href="" class="action" id="zoomDefault" title="Tamanho padrão" title="Definir tamanho da fonte padrão"
+                        alt="Tamanho da fonte padrão" tabindex="2">A</a>
+                    <a href="" class="action" id="zoomOut" title="Diminuir zoom" title="Diminuir tamanho da fonte" alt="Diminuir zoom"
+                        tabindex="3">A-</a>
+                    <label for="blackWhite" class="action" title="Cores preto e branco" tabindex="4">O</label>
+                    <input type="radio" name="color" class="radio-color" id="blackWhite">
+                    <label for="blackYellow" class="action" title="Cores preto e amarelo" tabindex="5">O</label>
+                    <input type="radio" name="color" class="radio-color" id="blackYellow">
+                    <label for="yellowBlack" class="action" title="Cores amarelo e branco" tabindex="6">O</label>
+                    <input type="radio" name="color" class="radio-color" id="yellowBlack">
+                    <label for="corsDefault" class="action" title="Cores padrão branco e preto" tabindex="7">O</label>
+                    <input type="radio" name="color" class="radio-color" id="corsDefault">
+                    <br>
+                </nav>
+                <div class="w-100 d-flex justify-content-end">
+                    <button type="button" class="btn btn-primary mr-3 mt-3 mb-3" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-user pr-3"></i>Login</button>
+                </div>
+            </header>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+            <footer class="footer col-12" role="contentinfo">
+                <div class="w-100 row justify-content-center">
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-12">
+                        <h4 class="flex pad-top-3p text-light">Informações</h4>
+                        <ul class="list-group">
+                            <li><a href="#" class="text-light">Cadastre seu estabelecimento</a></li>
+                            <li><a href="#" class="text-light">Quem somos</a></li>
+                            <li><a href="#" class="text-light">Sobre Nós</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-12">
+                        <h4 class="flex pad-top-3p text-light">Siga nos</h4>
+                        <ul>
+                            <li><a href="http://" class="text-light"><i class="fab fa-facebook mr-3"></i>Facebook</a></li>
+                            <li><a href="http://" class="text-light"><i class="fab fa-instagram mr-3"></i>Instagram</a></li>
+                            <li><a href="http://" class="text-light"><i class="fab fa-twitter mr-3"></i>Twitter</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <hr>
+                <div class="footer-down text-center">
+                    <small class="text-light">2018 &copy Todos Direitos Reservados</small>
+                </div>
+            </footer>
+        </div>
+    </form>
+    <script src="Scripts/js/main.js"></script>
+    <script src="Scripts/jquery-3.0.0.min.js"></script>
+</body>
+</html>
