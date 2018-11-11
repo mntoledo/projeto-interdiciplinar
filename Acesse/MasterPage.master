@@ -36,7 +36,7 @@
                     <br>
                 </nav>
                 <div class="w-100 d-flex justify-content-end">
-                    <button type="button" class="btn btn-primary mr-3 mt-3 mb-3" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-user pr-3"></i>Login</button>
+                    <a href="pgs/Login.aspx"><button type="button" class="btn btn-primary mr-3 mt-3 mb-3" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-user pr-3"></i>Login</button></a>
                 </div>
             </header>
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">

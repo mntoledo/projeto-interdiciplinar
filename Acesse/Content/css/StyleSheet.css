@@ -7,7 +7,7 @@ body {
   width: 100%;
   padding: 0;
   margin: 0;
-  font-family: 'Roboto', sans-serif; }
+  font-family: 'roboto', sans-serif; }
 
 .jumbotron {
   background-color: white;
@@ -219,3 +219,5 @@ footer hr {
 /*  BACKGROUND COLOR  */
 .bg-green {
   background-color: #38E672; }
+
+/*  MARGINS  */

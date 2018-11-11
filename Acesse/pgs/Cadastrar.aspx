@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Login.aspx.cs" Inherits="pgs_Login" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Cadastrar.aspx.cs" Inherits="pgs_Cadastrar" %>
 
 <!DOCTYPE html>
 
@@ -33,21 +33,21 @@
             </div>
             <div class="col-6 col-md-6 p-0 h100">
                 <div class="col-8 col-md-8 pt-5 mx-auto">
-                    <h1 class="pt-4">Acessar minha conta</h1>
+                    <h1 class="pt-4">Cadastrar</h1>
                     <form action="/" method="post" class="form-group mt-5">
-                        <label for="txtEmail">Nome</label>
-                        <asp:TextBox ID="txtEmail" runat="server" type="email" CssClass="form-control"></asp:TextBox>
+                        <label for="txtNome">Nome</label>
+                        <asp:TextBox ID="txtNome" runat="server" type="text" CssClass="form-control" required="required"></asp:TextBox>
+                        <label for="txtSobrenome">Sobrenome</label>
+                        <asp:TextBox ID="txtSobrenome" type="text" runat="server" CssClass="form-control" required="required"></asp:TextBox>
+                        <label for="txtEmail">Email</label>
+                        <asp:TextBox ID="txtEmail" runat="server" type="email" CssClass="form-control" required="required"></asp:TextBox>
                         <label for="txtSenha">Senha</label>
-                        <asp:TextBox ID="txtSenha" type="password" runat="server" CssClass="form-control"></asp:TextBox>
-                        <div class="form-group form-check mt-3">
-                            <asp:CheckBox ID="cbLembrar" runat="server" CssClass="form-check-input" />
-                            <label class="form-check-label" for="exampleCheck1">Manter conectado!</label>
+                        <asp:TextBox ID="txtSenha" type="password" runat="server" CssClass="form-control" required="required"></asp:TextBox>
+                        <label for="txtSenha">Confirmar Senha</label>
+                        <asp:TextBox ID="txtConfirmarSenha" type="password" runat="server" CssClass="form-control" required="required"></asp:TextBox>
 
-                            <a href="#" class="float-right">Esqueceu a senha</a>
-                        </div>
-                        <asp:Button ID="btnEntrar" CssClass="btn bg-green mt-3 mb-4" runat="server" Text="Entrar" />
-                        
-                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                        <asp:Button ID="btnEntrar" CssClass="btn bg-green mt-3 mb-4" runat="server" Text="Cadastrar" />
+
                     </form>
                 </div>
             </div>
