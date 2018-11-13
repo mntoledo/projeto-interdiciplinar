@@ -20,9 +20,7 @@ body {
 
 /* MENU DE CONTROLE DE ACESSIBILIDADE*/
 .accessibility-menu {
-  text-align: right;
-  font-size: 1.3em;
-  width: 100%; }
+  font-size: 1.3em; }
 
 .accessibility-menu a {
   margin-right: 2%; }

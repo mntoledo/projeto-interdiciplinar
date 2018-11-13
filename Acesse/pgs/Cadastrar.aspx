@@ -6,10 +6,10 @@
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Entrar</title>
-    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" />
     <link href="../Content/bootstrap.min.css" rel="stylesheet" />
     <link href="../Content/css/StyleSheet.css" rel="stylesheet" />
-    <meta name="google-signin-client_id" content="772132630781-m1h3781q801ibsr9s5ieafp0qobctqse.apps.googleusercontent.com">
+    <meta name="google-signin-client_id" content="772132630781-m1h3781q801ibsr9s5ieafp0qobctqse.apps.googleusercontent.com" />
     <script>
         function start() {
             gapi.load('auth2', function () {
@@ -34,7 +34,7 @@
             <div class="col-6 col-md-6 p-0 h100">
                 <div class="col-8 col-md-8 pt-5 mx-auto">
                     <h1 class="pt-4">Cadastrar</h1>
-                    <form action="/" method="post" class="form-group mt-5">
+                    <div class="form-group mt-5">
                         <label for="txtNome">Nome</label>
                         <asp:TextBox ID="txtNome" runat="server" type="text" CssClass="form-control" required="required"></asp:TextBox>
                         <label for="txtSobrenome">Sobrenome</label>
@@ -46,9 +46,9 @@
                         <label for="txtSenha">Confirmar Senha</label>
                         <asp:TextBox ID="txtConfirmarSenha" type="password" runat="server" CssClass="form-control" required="required"></asp:TextBox>
 
-                        <asp:Button ID="btnEntrar" CssClass="btn bg-green mt-3 mb-4" runat="server" Text="Cadastrar" />
+                        <asp:Button ID="btnEntrar" CssClass="btn bg-green mt-3 mb-4" runat="server" Text="Cadastrar" OnClick="btnEntrar_Click" />
 
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>

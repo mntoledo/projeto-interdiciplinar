@@ -15,28 +15,23 @@
 <body>
     <form id="form1" runat="server">
         <div>
-            <header id="header">
+            <header id="header ">
                 <a href="#">
-                    <img class="logo img-fluid" src="img/logo.png"></a>
-                <nav class="accessibility-menu col-8 col-sm-8 col-md-6 col-lg-4 d-flex justify-content-between justify-content-end float-right">
-                    <a href="" class="action" id="zoomIn" title="Aumentar zoom" title="Aumentar tamanho da fonte" alt="Aumentar zoom"
-                        tabindex="1">A+</a>
-                    <a href="" class="action" id="zoomDefault" title="Tamanho padrão" title="Definir tamanho da fonte padrão"
-                        alt="Tamanho da fonte padrão" tabindex="2">A</a>
-                    <a href="" class="action" id="zoomOut" title="Diminuir zoom" title="Diminuir tamanho da fonte" alt="Diminuir zoom"
-                        tabindex="3">A-</a>
-                    <label for="blackWhite" class="action" title="Cores preto e branco" tabindex="4">O</label>
+                    <img class="logo img-fluid mt-2 mb-2" src="img/logo.png" >
+                </a>
+                <div class="accessibility-menu col-8 col-sm-8 col-md-6 col-lg-4 d-flex justify-content-between justify-content-end float-right mt-1">
+                    <a href="" class="action" id="zoomIn" title="Aumentar tamanho da fonte">A+</a>
+                    <a href="" class="action" id="zoomDefault" title="Definir tamanho da fonte padrão">A</a>
+                    <a href="" class="action" id="zoomOut" title="Diminuir tamanho da fonte">A-</a>
+                    <label for="blackWhite" class="action" title="Cores preto e branco">O</label>
                     <input type="radio" name="color" class="radio-color" id="blackWhite">
-                    <label for="blackYellow" class="action" title="Cores preto e amarelo" tabindex="5">O</label>
+                    <label for="blackYellow" class="action" title="Cores preto e amarelo">O</label>
                     <input type="radio" name="color" class="radio-color" id="blackYellow">
-                    <label for="yellowBlack" class="action" title="Cores amarelo e branco" tabindex="6">O</label>
+                    <label for="yellowBlack" class="action" title="Cores amarelo e branco">O</label>
                     <input type="radio" name="color" class="radio-color" id="yellowBlack">
-                    <label for="corsDefault" class="action" title="Cores padrão branco e preto" tabindex="7">O</label>
+                    <label for="corsDefault" class="action" title="Cores padrão branco e preto">O</label>
                     <input type="radio" name="color" class="radio-color" id="corsDefault">
-                    <br>
-                </nav>
-                <div class="w-100 d-flex justify-content-end">
-                    <a href="pgs/Login.aspx"><button type="button" class="btn btn-primary mr-3 mt-3 mb-3" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-user pr-3"></i>Login</button></a>
+                    <a ID="btnLogin" href="pgs/Login.aspx"  data-toggle="modal" data-target="#exampleModal" class="btn btn-primary float-right" >Entrar</a>
                 </div>
             </header>
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
