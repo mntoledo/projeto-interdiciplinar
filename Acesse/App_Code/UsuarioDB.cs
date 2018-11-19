@@ -135,4 +135,35 @@ public class UsuarioDB
         objConnection.Dispose();
         return usu;
     }
+    public static Pessoa ValidaAcesso(string email, string senha)
+    {
+        Pessoa pes = null;
+        IDbConnection objConnection;
+        IDbCommand objCommand;
+        IDataReader objDataReader;
+        objConnection = Mapped.Connection();
+        objCommand = Mapped.Command("SELECT * FROM usu_usuario inner join pes_pessoa using(usu_codigo) WHERE usu_email=?email AND usu_senha=?senha;", objConnection);
+        objCommand.Parameters.Add(Mapped.Parameter("?email", email));
+        objCommand.Parameters.Add(Mapped.Parameter("?senha", senha));
+        objDataReader = objCommand.ExecuteReader();
+        while (objDataReader.Read())
+        {
+            pes = new Pessoa();
+            pes.Codigo = Convert.ToInt32(objDataReader["pes_codigo"]);
+            pes.Nome = Convert.ToString(objDataReader["pes_nome"]);
+            pes.SobreNome = Convert.ToString(objDataReader["pes_sobrenome"]);
+            pes.CPF = Convert.ToString(objDataReader["pes_cpf"]);
+            pes.RG = Convert.ToString(objDataReader["pes_rg"]);
+            pes.Usuario = new Usuario();
+            pes.Usuario.Codigo = Convert.ToInt32(objDataReader["usu_codigo"]);
+            pes.Usuario.Email = Convert.ToString(objDataReader["usu_email"]);
+            pes.Usuario.Senha = Convert.ToString(objDataReader["usu_senha"]);
+            pes.Usuario.Perfil = Convert.ToString(objDataReader["usu_perfil"]);
+            pes.Usuario.DataCadastro = Convert.ToDateTime(objDataReader["usu_datacadastro"]);
+        }
+        objConnection.Close();
+        objCommand.Dispose();
+        objConnection.Dispose();
+        return pes;
+    }
 }

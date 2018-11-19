@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Web;
+using System.Data;
 
 /// <summary>
-/// Descrição resumida de PessoaDB
+/// Descrição resumida de ImagemDB
 /// </summary>
-public class PessoaDB
+public class ImagemDB
 {
-    public static int Insert(Pessoa pes)
+    // INSERT
+    public static int Insert(Imagem img)
     {
 
         int retorno = 0;
@@ -17,17 +18,16 @@ public class PessoaDB
         {
             IDbConnection objConexao; // Abre a conexao
             IDbCommand objCommand; // Cria o comando
-            string sql = "INSERT INTO pes_pessoa(pes_codigo, pes_nome, pes_sobrenome, pes_cpf, pes_rg, usu_codigo) VALUES(?pes_codigo, ?pes_nome, ?pes_sobrenome, ?pes_cpf, ?pes_rg, ?usu_codigo);";
+            string sql = "INSERT INTO img_imagem(img_codigo, img_descricao, img_data, loc_codigo) VALUES(?img_descricao, ?img_data, ?loc_codigo);";
             objConexao = Mapped.Connection();
             objCommand = Mapped.Command(sql, objConexao);
-            objCommand.Parameters.Add(Mapped.Parameter("?pes_nome", pes.Nome));
-            objCommand.Parameters.Add(Mapped.Parameter("?pes_sobrenome", pes.SobreNome));
-            objCommand.Parameters.Add(Mapped.Parameter("?pes_cpf", pes.CPF));
-            objCommand.Parameters.Add(Mapped.Parameter("?pes_rg", pes.RG));
-            objCommand.Parameters.Add(Mapped.Parameter("?usu_codigo", pes.Usuario.Codigo));
-            objCommand.ExecuteNonQuery(); // utilizado quando cdigo não tem retorno, como seria o caso do SELECT
+            objCommand.Parameters.Add(Mapped.Parameter("?img_descricao", img.Descricao));
+            objCommand.Parameters.Add(Mapped.Parameter("?img_data", DateTime.Now));
+            objCommand.Parameters.Add(Mapped.Parameter("?loc_codigo", img.Local.Codigo));
+            //objCommand.ExecuteNonQuery(); // utilizado quando cdigo não tem retorno, como seria o caso do SELECT
+            retorno = Convert.ToInt32(objCommand.ExecuteScalar());
             //Fecha a conexão
-            objConexao.Close(); 
+            objConexao.Close();
             //Disponibiliza o objeto conexão e o objeto comando para serem utilizados novamente –limpando a memória
             objCommand.Dispose();
             objConexao.Dispose();
@@ -39,7 +39,7 @@ public class PessoaDB
         return retorno;
     }
 
-    public static int Update(Pessoa pes)
+    public static int Update(Imagem img)
     {
 
         int retorno = 0;
@@ -47,13 +47,12 @@ public class PessoaDB
         {
             IDbConnection objConexao; // Abre a conexao
             IDbCommand objCommand; // Cria o comando
-            string sql = "UPDATE pes_pessoa SET pes_nome=?pes_nome, pes_sobrenome=?pes_sobrenome, pes_cpf=?pes_cpf, loc_tipo=?loc_tipo WHERE loc_codigo=?loc_codigo;";
+            string sql = "UPDATE img_imagem SET img_descricao=?img_descricao, img_data=?img_data WHERE img_codigo=?img_codigo;";
             objConexao = Mapped.Connection();
             objCommand = Mapped.Command(sql, objConexao);
-            objCommand.Parameters.Add(Mapped.Parameter("?pes_nome", pes.Nome));
-            objCommand.Parameters.Add(Mapped.Parameter("?pes_sobrenome", pes.SobreNome));
-            objCommand.Parameters.Add(Mapped.Parameter("?pes_cpf", pes.CPF));
-            objCommand.Parameters.Add(Mapped.Parameter("?pes_rg", pes.RG));
+            objCommand.Parameters.Add(Mapped.Parameter("?img_codigo", img.Codigo));
+            objCommand.Parameters.Add(Mapped.Parameter("?img_descricao", img.Descricao));
+            objCommand.Parameters.Add(Mapped.Parameter("?img_data", img.Data));
             objCommand.ExecuteNonQuery(); // utilizado quando cdigo não tem retorno, como seria o caso do SELECT
             //Fecha a conexão
             objConexao.Close();
@@ -76,10 +75,10 @@ public class PessoaDB
         {
             IDbConnection objConexao; // Abre a conexao
             IDbCommand objCommand; // Cria o comando
-            string sql = "DELETE FROM pes_pessoa WHERE pes_codigo=?pes_codigo;";
+            string sql = "DELETE FROM img_imagem WHERE img_codigo=?img_codigo;";
             objConexao = Mapped.Connection();
             objCommand = Mapped.Command(sql, objConexao);
-            objCommand.Parameters.Add(Mapped.Parameter("?pes_codigo", codigo));
+            objCommand.Parameters.Add(Mapped.Parameter("?img_codigo", codigo));
             objCommand.ExecuteNonQuery(); // utilizado quando cdigo não tem retorno, como seria o caso do SELECT
             //Fecha a conexão
             objConexao.Close();
@@ -101,7 +100,7 @@ public class PessoaDB
         IDbCommand objCommand;
         IDataAdapter objDataAdapter;
         objConnection = Mapped.Connection();
-        objCommand = Mapped.Command("SELECT * FROM pes_pessoa ORDER BY pes_nome", objConnection);
+        objCommand = Mapped.Command("SELECT * FROM img_imagem ORDER BY img_codigo", objConnection);
         objDataAdapter = Mapped.Adapter(objCommand);
         objDataAdapter.Fill(ds); // O objeto DataAdapter vai preencher o DataSet com os dados do BD, O método Fill é o responsável por preencher o DataSet         
         objConnection.Close();
@@ -109,31 +108,29 @@ public class PessoaDB
         objConnection.Dispose();
         return ds;
     }
-    public static Pessoa Select(int codigo)
+    public static Imagem Select(int codigo)
     {
-        Pessoa pes = null;
+        Imagem img = null;
         IDbConnection objConnection;
         IDbCommand objCommand;
         IDataReader objDataReader;
         objConnection = Mapped.Connection();
-        objCommand = Mapped.Command("SELECT * FROM pes_pessoa WHERE pes_codigo=?pes_codigo;", objConnection);
-        objCommand.Parameters.Add(Mapped.Parameter("?pes_codigo", codigo));
+        objCommand = Mapped.Command("SELECT * FROM img_imagem WHERE img_codigo=?img_codigo;", objConnection);
+        objCommand.Parameters.Add(Mapped.Parameter("?img_codigo", codigo));
         objDataReader = objCommand.ExecuteReader();
         while (objDataReader.Read())
         {
-            pes = new Pessoa();
-            pes.Codigo = Convert.ToInt32(objDataReader["pes_codigo"]);
-            pes.Nome = Convert.ToString(objDataReader["pes_nome"]);
-            pes.SobreNome = Convert.ToString(objDataReader["pes_sobrenome"]);
-            pes.CPF = Convert.ToString(objDataReader["pes_cpf"]);
-            pes.RG = Convert.ToString(objDataReader["pes.rg"]);
+            img = new Imagem();
+            img.Codigo = Convert.ToInt32(objDataReader["img_codigo"]);
+            img.Descricao = Convert.ToString(objDataReader["img_descricao"]);
+            img.Data = Convert.ToDateTime(objDataReader["img_data"]);
 
-            pes.Usuario.Codigo = Convert.ToInt32(objDataReader["usu_codigo"]);
-
+            img.Local.Codigo = Convert.ToInt32(objDataReader["loc_codigo"]);
         }
         objConnection.Close();
         objCommand.Dispose();
         objConnection.Dispose();
-        return pes;
+        return img;
     }
+    
 }

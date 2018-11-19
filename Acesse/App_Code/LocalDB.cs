@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Web;
+using System.Data;
 
 /// <summary>
-/// Descrição resumida de PessoaDB
+/// Descrição resumida de LocalDB
 /// </summary>
-public class PessoaDB
+public class LocalDB
 {
-    public static int Insert(Pessoa pes)
+
+    // INSERT
+    public static int Insert(Local loc)
     {
 
         int retorno = 0;
@@ -17,17 +19,18 @@ public class PessoaDB
         {
             IDbConnection objConexao; // Abre a conexao
             IDbCommand objCommand; // Cria o comando
-            string sql = "INSERT INTO pes_pessoa(pes_codigo, pes_nome, pes_sobrenome, pes_cpf, pes_rg, usu_codigo) VALUES(?pes_codigo, ?pes_nome, ?pes_sobrenome, ?pes_cpf, ?pes_rg, ?usu_codigo);";
+            string sql = "INSERT INTO loc_local(loc_nome, loc_descricao, loc_categoria, loc_tipo, ace_codigo) VALUES(?loc_nome, ?loc_descricao, ?loc_categoria, ?loc_tipo, ?ace_codigo);";
             objConexao = Mapped.Connection();
             objCommand = Mapped.Command(sql, objConexao);
-            objCommand.Parameters.Add(Mapped.Parameter("?pes_nome", pes.Nome));
-            objCommand.Parameters.Add(Mapped.Parameter("?pes_sobrenome", pes.SobreNome));
-            objCommand.Parameters.Add(Mapped.Parameter("?pes_cpf", pes.CPF));
-            objCommand.Parameters.Add(Mapped.Parameter("?pes_rg", pes.RG));
-            objCommand.Parameters.Add(Mapped.Parameter("?usu_codigo", pes.Usuario.Codigo));
-            objCommand.ExecuteNonQuery(); // utilizado quando cdigo não tem retorno, como seria o caso do SELECT
+            objCommand.Parameters.Add(Mapped.Parameter("?loc_nome", loc.Nome));
+            objCommand.Parameters.Add(Mapped.Parameter("?loc_descricao", loc.Descricao));
+            objCommand.Parameters.Add(Mapped.Parameter("?loc_categoria", loc.Categoria));
+            objCommand.Parameters.Add(Mapped.Parameter("?loc_tipo", loc.Tipo));
+            objCommand.Parameters.Add(Mapped.Parameter("?ace_codigo", loc.Acessibilidade.Codigo));
+            //objCommand.ExecuteNonQuery(); // utilizado quando cdigo não tem retorno, como seria o caso do SELECT
+            retorno = Convert.ToInt32(objCommand.ExecuteScalar());
             //Fecha a conexão
-            objConexao.Close(); 
+            objConexao.Close();
             //Disponibiliza o objeto conexão e o objeto comando para serem utilizados novamente –limpando a memória
             objCommand.Dispose();
             objConexao.Dispose();
@@ -39,7 +42,7 @@ public class PessoaDB
         return retorno;
     }
 
-    public static int Update(Pessoa pes)
+    public static int Update(Local loc)
     {
 
         int retorno = 0;
@@ -47,13 +50,13 @@ public class PessoaDB
         {
             IDbConnection objConexao; // Abre a conexao
             IDbCommand objCommand; // Cria o comando
-            string sql = "UPDATE pes_pessoa SET pes_nome=?pes_nome, pes_sobrenome=?pes_sobrenome, pes_cpf=?pes_cpf, loc_tipo=?loc_tipo WHERE loc_codigo=?loc_codigo;";
+            string sql = "UPDATE loc_local SET loc_nome=?loc_nome, loc_descricao=?loc_descricao, loc_categoria=?loc_categoria, loc_tipo=?loc_tipo WHERE loc_codigo=?loc_codigo;";
             objConexao = Mapped.Connection();
             objCommand = Mapped.Command(sql, objConexao);
-            objCommand.Parameters.Add(Mapped.Parameter("?pes_nome", pes.Nome));
-            objCommand.Parameters.Add(Mapped.Parameter("?pes_sobrenome", pes.SobreNome));
-            objCommand.Parameters.Add(Mapped.Parameter("?pes_cpf", pes.CPF));
-            objCommand.Parameters.Add(Mapped.Parameter("?pes_rg", pes.RG));
+            objCommand.Parameters.Add(Mapped.Parameter("?loc_nome", loc.Codigo));
+            objCommand.Parameters.Add(Mapped.Parameter("?loc_descricao", loc.Descricao));
+            objCommand.Parameters.Add(Mapped.Parameter("?loc_categoria", loc.Categoria));
+            objCommand.Parameters.Add(Mapped.Parameter("?loc_tipo", loc.Tipo));
             objCommand.ExecuteNonQuery(); // utilizado quando cdigo não tem retorno, como seria o caso do SELECT
             //Fecha a conexão
             objConexao.Close();
@@ -76,10 +79,10 @@ public class PessoaDB
         {
             IDbConnection objConexao; // Abre a conexao
             IDbCommand objCommand; // Cria o comando
-            string sql = "DELETE FROM pes_pessoa WHERE pes_codigo=?pes_codigo;";
+            string sql = "DELETE FROM loc_local WHERE loc_codigo=?loc_codigo;";
             objConexao = Mapped.Connection();
             objCommand = Mapped.Command(sql, objConexao);
-            objCommand.Parameters.Add(Mapped.Parameter("?pes_codigo", codigo));
+            objCommand.Parameters.Add(Mapped.Parameter("?loc_codigo", codigo));
             objCommand.ExecuteNonQuery(); // utilizado quando cdigo não tem retorno, como seria o caso do SELECT
             //Fecha a conexão
             objConexao.Close();
@@ -101,7 +104,7 @@ public class PessoaDB
         IDbCommand objCommand;
         IDataAdapter objDataAdapter;
         objConnection = Mapped.Connection();
-        objCommand = Mapped.Command("SELECT * FROM pes_pessoa ORDER BY pes_nome", objConnection);
+        objCommand = Mapped.Command("SELECT * FROM loc_local ORDER BY loc_nome", objConnection);
         objDataAdapter = Mapped.Adapter(objCommand);
         objDataAdapter.Fill(ds); // O objeto DataAdapter vai preencher o DataSet com os dados do BD, O método Fill é o responsável por preencher o DataSet         
         objConnection.Close();
@@ -109,31 +112,31 @@ public class PessoaDB
         objConnection.Dispose();
         return ds;
     }
-    public static Pessoa Select(int codigo)
+    public static Local Select(int codigo)
     {
-        Pessoa pes = null;
+        Local loc = null;
         IDbConnection objConnection;
         IDbCommand objCommand;
         IDataReader objDataReader;
         objConnection = Mapped.Connection();
-        objCommand = Mapped.Command("SELECT * FROM pes_pessoa WHERE pes_codigo=?pes_codigo;", objConnection);
-        objCommand.Parameters.Add(Mapped.Parameter("?pes_codigo", codigo));
+        objCommand = Mapped.Command("SELECT * FROM loc_local WHERE loc_codigo=?loc_codigo;", objConnection);
+        objCommand.Parameters.Add(Mapped.Parameter("?loc_codigo", codigo));
         objDataReader = objCommand.ExecuteReader();
         while (objDataReader.Read())
         {
-            pes = new Pessoa();
-            pes.Codigo = Convert.ToInt32(objDataReader["pes_codigo"]);
-            pes.Nome = Convert.ToString(objDataReader["pes_nome"]);
-            pes.SobreNome = Convert.ToString(objDataReader["pes_sobrenome"]);
-            pes.CPF = Convert.ToString(objDataReader["pes_cpf"]);
-            pes.RG = Convert.ToString(objDataReader["pes.rg"]);
+            loc = new Local();
+            loc.Codigo = Convert.ToInt32(objDataReader["loc_codigo"]);
+            loc.Nome = Convert.ToString(objDataReader["loc_nome"]);
+            loc.Descricao = Convert.ToString(objDataReader["loc_descricao"]);
+            loc.Categoria = Convert.ToString(objDataReader["loc_categoria"]);
+            loc.Tipo = Convert.ToString(objDataReader["loc_tipo"]);
 
-            pes.Usuario.Codigo = Convert.ToInt32(objDataReader["usu_codigo"]);
-
+            loc.Acessibilidade.Codigo = Convert.ToInt32(objDataReader["ace_codigo"]);
         }
         objConnection.Close();
         objCommand.Dispose();
         objConnection.Dispose();
-        return pes;
+        return loc;
     }
+    
 }

@@ -45,8 +45,10 @@
 
                             <a href="#" class="float-right">Esqueceu a senha</a>
                         </div>
-                        <asp:Button ID="btnEntrar" CssClass="btn bg-green mt-3 mb-4" runat="server" Text="Entrar" />
-                        
+                        <asp:Button ID="btnEntrar" CssClass="btn bg-green mt-3 mb-4" runat="server" Text="Entrar" OnClick="btnEntrar_Click"/>
+                        <br />
+                        <br />
+                        <asp:Label ID="lblMensagem" runat="server"></asp:Label>
                     <div class="g-signin2" data-onsuccess="onSignIn"></div>
                     </form>
                 </div>
